@@ -11,7 +11,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     private Camera _MainCamera;
 
-    public float range = 10;
+    public float range = 100;
+    [SerializeField]
+    private GameObject _muzzleFlash;
 
     // Start is called before the first frame update
     void Start()
@@ -26,8 +28,10 @@ public class Player : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetMouseButton(0))
         {
+
+            _muzzleFlash.SetActive(true);
 
             Ray theRay = _MainCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0));
             Debug.DrawRay(theRay.origin, theRay.direction * 20f, Color.red, 5f);
@@ -50,6 +54,11 @@ public class Player : MonoBehaviour
             }
         }
 
+        else
+        {
+            _muzzleFlash.SetActive(false);
+        }
+         
         CalculateMovement();
 
     }
